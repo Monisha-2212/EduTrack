@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "cd frontend && vite",
-    "build": "cd frontend && vite build",
+    "prebuild": "npm install",
+    "build": "cd frontend && npx vite build",
     "start": "node backend/server.js",
     "dev:full": "concurrently \"cd frontend && vite\" \"node backend/server.js\""
   },

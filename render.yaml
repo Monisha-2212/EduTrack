@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: edutrack
+    env: node
+    plan: free
+    buildCommand: npm install && cd frontend && npx vite build
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        scope: build
+      - key: JWT_SECRET
+        scope: build
+      - key: CLOUDINARY_CLOUD_NAME
+        scope: build
+      - key: CLOUDINARY_API_KEY
+        scope: build
+      - key: CLOUDINARY_API_SECRET
+        scope: build
+      - key: CLIENT_URL
+        scope: build
