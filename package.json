@@ -1,6 +1,7 @@
 {
   "name": "edutrack",
   "version": "1.0.0",
+  "type": "module",
   "description": "EduTrack - Academic Assignment Management Platform",
   "engines": {
     "node": ">=18.0.0",
@@ -8,8 +9,7 @@
   },
   "scripts": {
     "dev": "cd frontend && vite",
-    "prebuild": "npm install",
-    "build": "cd frontend && npx vite build",
+    "build": "npm install && cd frontend && npm run build",
     "start": "node backend/server.js",
     "dev:full": "concurrently \"cd frontend && vite\" \"node backend/server.js\""
   },
