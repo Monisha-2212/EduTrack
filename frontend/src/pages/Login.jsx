@@ -59,23 +59,23 @@ export default function Login() {
 
   // ─── Shared input class ───────────────────────────────────────────────────
   const inputCls =
-    'border border-[#E8E4DC] dark:border-[#2C2A26] rounded-lg px-3 py-2 text-sm w-full ' +
-    'bg-[#FFFDF9] dark:bg-[#1C1A17] text-[#2C2A26] dark:text-[#F5F0E8] ' +
-    'focus:outline-none focus:ring-2 focus:ring-[#C9A96E] transition-shadow';
+    'border border-indigo-200 rounded-lg px-3 py-2 text-sm w-full ' +
+    'bg-violet-50 text-gray-900 ' +
+    'focus:outline-none focus:ring-2 focus:ring-indigo-700 transition-shadow';
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] dark:bg-[#1C1A17] flex items-center justify-center px-4">
-      <div className="bg-[#FFFDF9] dark:bg-[#1C1A17] border border-[#EDE8DF] dark:border-[#2C2A26]
+    <div className="min-h-screen bg-indigo-950 flex items-center justify-center px-4">
+      <div className="bg-white border border-gray-200
                       rounded-2xl p-8 w-full max-w-sm shadow-sm">
 
         {/* ── Logo ── */}
         <div className="flex items-center gap-2 mb-6">
-          <span className="w-2 h-2 rounded-full bg-[#C9A96E] shrink-0" />
-          <span className="text-lg font-medium text-[#8B6914] dark:text-[#F5F0E8]">EduTrack</span>
+          <span className="w-2 h-2 rounded-full bg-indigo-700 shrink-0" />
+          <span className="text-lg font-extrabold text-indigo-700">EduTrack</span>
         </div>
 
         {/* ── Heading ── */}
-        <h1 className="text-base font-medium text-[#2C2A26] dark:text-[#F5F0E8] leading-snug">
+        <h1 className="text-base font-extrabold text-gray-900 leading-snug">
           Welcome back
         </h1>
         <p className="text-sm text-[#9A9288] dark:text-[#6B6660] mt-0.5 mb-6">
@@ -86,7 +86,7 @@ export default function Login() {
 
           {/* ── Email ── */}
           <div>
-            <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1">
+            <label className="block text-xs font-medium text-gray-600 mb-1">
               Email
             </label>
             <input
@@ -104,7 +104,7 @@ export default function Login() {
 
           {/* ── Password ── */}
           <div>
-            <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1">
+            <label className="block text-xs font-medium text-gray-600 mb-1">
               Password
             </label>
             <div className="relative">
@@ -134,7 +134,7 @@ export default function Login() {
 
           {/* ── Role selector ── */}
           <div>
-            <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1.5">
+            <label className="block text-xs font-medium text-gray-600 mb-1.5">
               I am a
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -147,8 +147,8 @@ export default function Login() {
                   className={cn(
                     'py-2 rounded-lg text-sm capitalize transition-all duration-150',
                     selectedRole === role
-                      ? 'border-2 border-[#C9A96E] bg-[#FAF8F5] dark:bg-[#1C1A17]/30 text-[#8B6914] dark:text-[#F5F0E8] font-medium'
-                      : 'border border-[#E8E4DC] dark:border-[#2C2A26] text-[#6B6660] dark:text-[#9A9288] bg-[#FFFDF9] dark:bg-[#1C1A17] hover:border-[#E8E4DC]'
+                      ? 'border-2 border-indigo-700 bg-indigo-50 text-indigo-700 font-medium'
+                      : 'border border-gray-300 text-gray-600 bg-white hover:border-gray-400'
                   )}
                 >
                   {role}
@@ -165,9 +165,9 @@ export default function Login() {
             id="login-submit"
             type="submit"
             disabled={isLoading}
-            className="mt-4 w-full flex items-center justify-center gap-2 bg-[#2C2A26]
-                       hover:bg-[#3A3830] active:bg-[#1C1A17] disabled:opacity-60
-                       text-[#F0EBE0] text-sm font-medium rounded-lg py-2.5
+            className="mt-4 w-full flex items-center justify-center gap-2 bg-indigo-700
+                       hover:bg-indigo-800 active:bg-indigo-900 disabled:opacity-60
+                       text-white text-sm font-medium rounded-lg py-2.5
                        transition-colors duration-150"
           >
             {isLoading ? (
@@ -182,11 +182,11 @@ export default function Login() {
         </form>
 
         {/* ── Footer link ── */}
-        <p className="text-xs text-[#9A9288] dark:text-[#6B6660] mt-5 text-center">
+        <p className="text-xs text-gray-600 mt-5 text-center">
           Don&apos;t have an account?{' '}
           <Link
             to="/signup"
-            className="text-[#8B6914] dark:text-[#F5F0E8] hover:underline font-medium"
+            className="text-indigo-700 hover:underline font-medium"
           >
             Create one
           </Link>

@@ -28,22 +28,26 @@ const STUDENT_NAV = [
 
 // ─── Individual nav item ──────────────────────────────────────────────────────
 
-function NavItem({ item, isActive, onClick, badge }) {
+function NavItem({ item, isActive, onClick, badge, role }) {
   const { Icon, label } = item;
+  const activeBg = role === 'student' ? 'bg-indigo-700' : 'bg-emerald-600';
+  const activeText = role === 'student' ? 'text-white' : 'text-white';
+  const inactiveText = 'text-gray-600';
+  const hoverBg = role === 'student' ? 'hover:bg-indigo-50' : 'hover:bg-emerald-50';
   return (
     <button
       onClick={onClick}
       className={cn(
         'flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm w-full cursor-pointer transition-colors duration-150',
         isActive
-          ? 'bg-[#FAF8F5] text-[#8B6914] font-medium'
-          : 'text-[#6B6660] hover:bg-[#FAF8F5] hover:text-[#3A3830]'
+          ? `${activeBg} ${activeText} font-medium`
+          : `${inactiveText} ${hoverBg}`
       )}
     >
       <Icon size={15} className="shrink-0" />
       <span className="flex-1 text-left">{label}</span>
       {badge > 0 && (
-        <span className="bg-[#8B6914] text-[#F0EBE0] text-[10px] px-1.5 py-0.5 rounded-full leading-none min-w-[18px] text-center">
+        <span className={`bg-${role === 'student' ? 'indigo' : 'emerald'}-700 text-white text-[10px] px-1.5 py-0.5 rounded-full leading-none min-w-[18px] text-center`}>
           {badge > 99 ? '99+' : badge}
         </span>
       )}
@@ -58,13 +62,14 @@ function Avatar({ name, role }) {
     ? name.split(' ').map((w) => w[0]).slice(0, 2).join('').toUpperCase()
     : '?';
 
+  const bgColor = role === 'student' ? 'bg-indigo-100' : 'bg-emerald-100';
+  const textColor = role === 'student' ? 'text-indigo-800' : 'text-emerald-800';
+
   return (
     <div
       className={cn(
         'w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold shrink-0',
-        role === 'faculty'
-          ? 'bg-[#FAF8F5] text-[#8B6914]'
-          : 'bg-[#EDF4E8] text-[#3A5C28]'
+        bgColor, textColor
       )}
     >
       {initials}
@@ -81,6 +86,8 @@ export default function Sidebar({ role, activeItem, onNavigate }) {
   const { unreadCount } = useNotifications();
 
   const navItems = role === 'faculty' ? FACULTY_NAV : STUDENT_NAV;
+  const sidebarBg = role === 'student' ? 'bg-indigo-950' : 'bg-teal-900';
+  const logoText = role === 'student' ? 'text-indigo-300' : 'text-emerald-300';
 
   const handleLogout = async () => {
     try {
@@ -95,32 +102,30 @@ export default function Sidebar({ role, activeItem, onNavigate }) {
   return (
     <>
       {/* ── Desktop sidebar ────────────────────────────────────────────── */}
-      <aside className="hidden md:flex w-56 h-screen bg-[#FFFDF9] dark:bg-[#1C1A17]
-                        border-r border-[#EDE8DF] dark:border-[#2C2A26]
-                        flex-col fixed left-0 top-0 z-10">
+      <aside className={cn("hidden md:flex w-56 h-screen border-r border-gray-200 flex-col fixed left-0 top-0 z-10", sidebarBg)}>
 
         {/* Top section */}
         <div className="p-5 flex-1 flex flex-col min-h-0">
 
           {/* Logo */}
           <div className="flex items-center gap-2 mb-5">
-            <span className="w-2 h-2 rounded-full bg-[#C9A96E] shrink-0" />
-            <span className="text-sm font-medium text-[#8B6914] dark:text-[#F5F0E8]">EduTrack</span>
+            <span className="w-2 h-2 rounded-full bg-indigo-700 shrink-0" />
+            <span className={cn("text-sm font-extrabold", logoText)}>EduTrack</span>
           </div>
 
           {/* Avatar row */}
           <div className="flex items-center gap-2.5 mb-6">
             <Avatar name={user?.name} role={role} />
             <div className="min-w-0">
-              <p className="text-sm font-medium text-[#2C2A26] dark:text-[#F5F0E8] truncate">
+              <p className="text-sm font-medium text-white truncate">
                 {user?.name ?? '—'}
               </p>
-              <p className="text-xs text-[#9A9288] capitalize">{role}</p>
+              <p className="text-xs text-gray-300 capitalize">{role}</p>
             </div>
           </div>
 
           {/* Menu label */}
-          <p className="text-[10px] uppercase tracking-widest text-[#9A9288] px-3 mb-1.5">
+          <p className="text-[10px] uppercase tracking-widest text-gray-300 px-3 mb-1.5">
             Menu
           </p>
 
@@ -133,18 +138,19 @@ export default function Sidebar({ role, activeItem, onNavigate }) {
                 isActive={activeItem === item.key}
                 badge={item.key === 'notifications' ? unreadCount : 0}
                 onClick={() => onNavigate(item.key)}
+                role={role}
               />
             ))}
           </nav>
         </div>
 
         {/* Bottom — logout */}
-        <div className="mt-auto p-4 border-t border-[#EDE8DF] dark:border-[#2C2A26]">
+        <div className="mt-auto p-4 border-t border-gray-700">
           <button
             id="sidebar-logout"
             onClick={handleLogout}
-            className="flex items-center gap-2 text-sm text-[#9A9288] hover:text-[#3A3830]
-                       dark:hover:text-[#D8D4CC] transition-colors duration-150 w-full px-3 py-2"
+            className="flex items-center gap-2 text-sm text-gray-300 hover:text-white
+                       transition-colors duration-150 w-full px-3 py-2"
           >
             <LogOut size={14} className="shrink-0" />
             Log out
@@ -153,25 +159,25 @@ export default function Sidebar({ role, activeItem, onNavigate }) {
       </aside>
 
       {/* ── Mobile bottom nav bar (< md) ──────────────────────────────── */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-[#FFFDF9] dark:bg-[#1C1A17]
-                      border-t border-[#EDE8DF] dark:border-[#2C2A26] flex items-center
-                      justify-around px-2 py-2 safe-area-bottom">
+      <nav className={cn("md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-gray-200 flex items-center justify-around px-2 py-2", sidebarBg)}>
         {navItems.map(({ key, label, Icon }) => {
           const isActive = activeItem === key;
           const badge = key === 'notifications' ? unreadCount : 0;
+          const activeText = role === 'student' ? 'text-indigo-700' : 'text-emerald-600';
+          const inactiveText = 'text-gray-600';
           return (
             <button
               key={key}
               onClick={() => onNavigate(key)}
               className={cn(
                 'flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors duration-150 relative',
-                isActive ? 'text-[#8B6914]' : 'text-[#9A9288] hover:text-[#4A4640]'
+                isActive ? activeText : inactiveText
               )}
             >
               <Icon size={18} />
               <span className="text-[10px]">{label}</span>
               {badge > 0 && (
-                <span className="absolute top-1 right-1.5 w-2 h-2 bg-[#8B6914] rounded-full" />
+                <span className="absolute top-1 right-1.5 w-2 h-2 bg-indigo-700 rounded-full" />
               )}
             </button>
           );
@@ -180,7 +186,7 @@ export default function Sidebar({ role, activeItem, onNavigate }) {
         {/* Logout icon for mobile */}
         <button
           onClick={handleLogout}
-          className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[#9A9288] hover:text-[#4A4640] transition-colors"
+          className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-gray-600 transition-colors"
         >
           <LogOut size={18} />
           <span className="text-[10px]">Logout</span>

@@ -70,15 +70,15 @@ export default function StudentDashboard() {
         <div className="space-y-6">
           {activeSection === 'overview' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="bg-[#FFFDF9] dark:bg-[#1C1A17] border border-[#EDE8DF] dark:border-[#2C2A26] rounded-xl p-4 flex items-center gap-4">
-                 <div className="w-10 h-10 rounded-full bg-[#FDF5E4] dark:bg-[#1C1A17]/20 flex items-center justify-center text-[#7A5A10]">
+              <div className="bg-white border border-indigo-100 rounded-xl p-4 flex items-center gap-4">
+                 <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700">
                    <BookOpen size={20} />
                  </div>
                  <div>
-                   <p className="text-2xl font-semibold text-[#2C2A26] dark:text-[#F5F0E8] leading-none">
+                   <p className="text-2xl font-semibold text-gray-900 leading-none">
                      {pendingAssignments.length}
                    </p>
-                   <p className="text-xs text-[#9A9288] mt-1">Pending Assignments</p>
+                   <p className="text-xs text-gray-600 mt-1">Pending Assignments</p>
                  </div>
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function StudentDashboard() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#FAF8F5] dark:bg-[#1C1A17] font-sans">
+    <div className="flex h-screen overflow-hidden bg-indigo-50 font-sans">
       <Sidebar 
         role="student" 
         activeItem={activeSection} 

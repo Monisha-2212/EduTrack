@@ -13,13 +13,13 @@ export default function NotificationList({ limit }) {
 
   if (isLoading) {
     return (
-      <div className="bg-[#FFFDF9] dark:bg-[#1C1A17] border border-[#EDE8DF] dark:border-[#2C2A26] rounded-xl p-4 space-y-3">
+      <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-3">
         {[1, 2, 3].map((i) => (
           <div key={i} className="flex gap-3 animate-pulse">
-            <div className="w-2 h-2 rounded-full bg-[#EDE8DF] dark:bg-[#1C1A17] mt-1.5" />
+            <div className="w-2 h-2 rounded-full bg-gray-300 mt-1.5" />
             <div className="flex-1 space-y-2">
-              <div className="h-4 bg-[#EDE8DF] dark:bg-[#1C1A17] rounded w-3/4" />
-              <div className="h-3 bg-[#FAF8F5] dark:bg-[#1C1A17]/50 rounded w-1/4" />
+              <div className="h-4 bg-gray-300 rounded w-3/4" />
+              <div className="h-3 bg-gray-200 rounded w-1/4" />
             </div>
           </div>
         ))}
@@ -31,37 +31,37 @@ export default function NotificationList({ limit }) {
 
   if (list.length === 0) {
     return (
-      <div className="bg-[#FFFDF9] dark:bg-[#1C1A17] border border-[#EDE8DF] dark:border-[#2C2A26] rounded-xl py-8 text-center">
-        <BellOff size={24} className="mx-auto text-[#D8D4CC] dark:text-[#3A3830] mb-2" />
-        <p className="text-sm text-[#9A9288] dark:text-[#6B6660]">No notifications yet</p>
+      <div className="bg-white border border-gray-200 rounded-xl py-8 text-center">
+        <BellOff size={24} className="mx-auto text-gray-400 mb-2" />
+        <p className="text-sm text-gray-600">No notifications yet</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#FFFDF9] dark:bg-[#1C1A17] border border-[#EDE8DF] dark:border-[#2C2A26] rounded-xl overflow-hidden divide-y divide-[#EDE8DF] dark:divide-[#2C2A26]">
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden divide-y divide-gray-200">
       {list.map((n) => (
         <div
           key={n._id}
           onClick={() => !n.isRead && markAsRead(n._id)}
           className={cn(
             'flex items-start gap-3 px-4 py-3 cursor-pointer transition-colors duration-150',
-            n.isRead ? 'opacity-70 grayscale-[0.5]' : 'bg-[#FFFDF9] dark:bg-[#1C1A17] hover:bg-[#FAF8F5] dark:hover:bg-[#1C1A17]/50'
+            n.isRead ? 'opacity-70' : 'bg-green-50 hover:bg-green-100 border-l-4 border-green-500'
           )}
         >
           {/* Unread indicator */}
           <div
             className={cn(
               'w-2 h-2 rounded-full mt-1.5 shrink-0',
-              n.isRead ? 'bg-[#E8E4DC] dark:bg-[#1C1A17]' : 'bg-[#C9A96E] shadow-sm shadow-[#C9A96E]/40'
+              n.isRead ? 'bg-gray-300' : 'bg-green-500'
             )}
           />
           
           <div className="flex-1 min-w-0">
-            <p className="text-sm text-[#3A3830] dark:text-[#D8D4CC] leading-snug">
+            <p className="text-sm text-green-800 leading-snug">
               {n.message}
             </p>
-            <p className="text-[11px] text-[#9A9288] dark:text-[#6B6660] mt-1">
+            <p className="text-[11px] text-green-600 mt-1">
               {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}
             </p>
           </div>

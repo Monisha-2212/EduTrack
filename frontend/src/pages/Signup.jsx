@@ -32,9 +32,9 @@ const step3Schema = z
 // ─── Shared input class ────────────────────────────────────────────────────────
 
 const inputCls =
-  'border border-[#E8E4DC] dark:border-[#2C2A26] rounded-lg px-3 py-2 text-sm w-full ' +
-  'bg-[#FFFDF9] dark:bg-[#1C1A17] text-[#2C2A26] dark:text-[#F5F0E8] ' +
-  'focus:outline-none focus:ring-2 focus:ring-[#C9A96E] transition-shadow';
+  'border border-indigo-200 rounded-lg px-3 py-2 text-sm w-full ' +
+  'bg-violet-50 text-gray-900 ' +
+  'focus:outline-none focus:ring-2 focus:ring-indigo-700 transition-shadow';
 
 // ─── Progress bar ─────────────────────────────────────────────────────────────
 
@@ -46,7 +46,7 @@ function ProgressBar({ currentStep }) {
           key={s}
           className={cn(
             'h-1 flex-1 rounded-full transition-colors duration-300',
-            s <= currentStep ? 'bg-[#2C2A26]' : 'bg-[#EDE8DF] dark:bg-[#1C1A17]'
+            s <= currentStep ? 'bg-indigo-700' : 'bg-gray-300'
           )}
         />
       ))}
@@ -66,7 +66,7 @@ function Step1({ onNext, defaults }) {
   return (
     <form onSubmit={handleSubmit(onNext)} noValidate className="space-y-4">
       <div>
-        <h1 className="text-base font-medium text-[#2C2A26] dark:text-[#F5F0E8]">
+        <h1 className="text-base font-extrabold text-gray-900">
           Create your account
         </h1>
         <p className="text-sm text-[#9A9288] dark:text-[#6B6660] mt-0.5 mb-6">
@@ -76,7 +76,7 @@ function Step1({ onNext, defaults }) {
 
       {/* Name */}
       <div>
-        <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1">
+        <label className="block text-xs font-medium text-gray-600 mb-1">
           Full Name
         </label>
         <input
@@ -94,7 +94,7 @@ function Step1({ onNext, defaults }) {
 
       {/* Email */}
       <div>
-        <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1">
+        <label className="block text-xs font-medium text-gray-600 mb-1">
           Email
         </label>
         <input
@@ -113,8 +113,8 @@ function Step1({ onNext, defaults }) {
       <button
         id="signup-step1-continue"
         type="submit"
-        className="w-full bg-[#2C2A26] hover:bg-[#3A3830] active:bg-[#1C1A17]
-                   text-[#F0EBE0] text-sm font-medium rounded-lg py-2.5 transition-colors duration-150"
+        className="w-full bg-indigo-700 hover:bg-indigo-800 active:bg-indigo-900
+                   text-white text-sm font-medium rounded-lg py-2.5 transition-colors duration-150"
       >
         Continue
       </button>
@@ -150,7 +150,7 @@ function Step2({ onNext, onBack, defaultRole }) {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-base font-medium text-[#2C2A26] dark:text-[#F5F0E8]">
+        <h1 className="text-base font-extrabold text-gray-900">
           Who are you?
         </h1>
         <p className="text-sm text-[#9A9288] dark:text-[#6B6660] mt-0.5 mb-6">
@@ -170,8 +170,10 @@ function Step2({ onNext, onBack, defaultRole }) {
               'border-2 rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer',
               'transition-all duration-150 text-left',
               selected === value
-                ? 'border-[#C9A96E] bg-[#FAF8F5] dark:bg-[#1C1A17]/30'
-                : 'border-[#E8E4DC] dark:border-[#2C2A26] bg-[#FFFDF9] dark:bg-[#1C1A17] hover:border-[#E8E4DC] dark:hover:border-[#2C2A26]'
+                ? value === 'student' 
+                  ? 'border-indigo-700 bg-indigo-50' 
+                  : 'border-emerald-500 bg-emerald-50'
+                : 'border-gray-300 bg-white hover:border-gray-400'
             )}
           >
             <Icon
@@ -179,21 +181,21 @@ function Step2({ onNext, onBack, defaultRole }) {
               className={cn(
                 'transition-colors',
                 selected === value
-                  ? 'text-[#8B6914] dark:text-[#F5F0E8]'
-                  : 'text-[#9A9288] dark:text-[#6B6660]'
+                  ? value === 'student' ? 'text-indigo-700' : 'text-emerald-600'
+                  : 'text-gray-600'
               )}
             />
             <span
               className={cn(
                 'text-sm font-medium',
                 selected === value
-                  ? 'text-[#8B6914] dark:text-[#F5F0E8]'
-                  : 'text-[#3A3830] dark:text-[#D8D4CC]'
+                  ? value === 'student' ? 'text-indigo-700' : 'text-emerald-600'
+                  : 'text-gray-600'
               )}
             >
               {label}
             </span>
-            <span className="text-xs text-[#9A9288] dark:text-[#6B6660] text-center leading-tight">
+            <span className="text-xs text-gray-500 text-center leading-tight">
               {description}
             </span>
           </button>
@@ -206,9 +208,9 @@ function Step2({ onNext, onBack, defaultRole }) {
         disabled={!selected}
         onClick={handleContinue}
         className={cn(
-          'w-full bg-[#2C2A26] text-[#F0EBE0] text-sm font-medium rounded-lg py-2.5 transition-colors duration-150',
+          'w-full bg-indigo-700 text-white text-sm font-medium rounded-lg py-2.5 transition-colors duration-150',
           selected
-            ? 'hover:bg-[#3A3830] active:bg-[#1C1A17]'
+            ? 'hover:bg-indigo-800 active:bg-indigo-900'
             : 'opacity-50 cursor-not-allowed'
         )}
       >
@@ -218,7 +220,7 @@ function Step2({ onNext, onBack, defaultRole }) {
       <button
         type="button"
         onClick={onBack}
-        className="w-full text-xs text-[#9A9288] dark:text-[#6B6660] hover:text-[#4A4640] dark:hover:text-[#D8D4CC]
+        className="w-full text-xs text-gray-600 hover:text-gray-800
                    flex items-center justify-center gap-1 transition-colors"
       >
         <ChevronLeft size={13} /> Back
@@ -242,7 +244,7 @@ function Step3({ onSubmit: onFinish, onBack, isLoading }) {
   return (
     <form onSubmit={handleSubmit(onFinish)} noValidate className="space-y-4">
       <div>
-        <h1 className="text-base font-medium text-[#2C2A26] dark:text-[#F5F0E8]">
+        <h1 className="text-base font-extrabold text-gray-900">
           Set your password
         </h1>
         <p className="text-sm text-[#9A9288] dark:text-[#6B6660] mt-0.5 mb-6">
@@ -252,7 +254,7 @@ function Step3({ onSubmit: onFinish, onBack, isLoading }) {
 
       {/* Password */}
       <div>
-        <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1">
+        <label className="block text-xs font-medium text-gray-600 mb-1">
           Password
         </label>
         <div className="relative">
@@ -282,7 +284,7 @@ function Step3({ onSubmit: onFinish, onBack, isLoading }) {
 
       {/* Confirm password */}
       <div>
-        <label className="block text-xs font-medium text-[#4A4640] dark:text-[#9A9288] mb-1">
+        <label className="block text-xs font-medium text-gray-600 mb-1">
           Confirm Password
         </label>
         <div className="relative">
@@ -315,9 +317,9 @@ function Step3({ onSubmit: onFinish, onBack, isLoading }) {
         id="signup-create-account"
         type="submit"
         disabled={isLoading}
-        className="w-full flex items-center justify-center gap-2 bg-[#2C2A26]
-                   hover:bg-[#3A3830] active:bg-[#1C1A17] disabled:opacity-60
-                   text-[#F0EBE0] text-sm font-medium rounded-lg py-2.5 transition-colors duration-150"
+        className="w-full flex items-center justify-center gap-2 bg-indigo-700
+                   hover:bg-indigo-800 active:bg-indigo-900 disabled:opacity-60
+                   text-white text-sm font-medium rounded-lg py-2.5 transition-colors duration-150"
       >
         {isLoading ? (
           <>
@@ -333,7 +335,7 @@ function Step3({ onSubmit: onFinish, onBack, isLoading }) {
       <button
         type="button"
         onClick={onBack}
-        className="w-full text-xs text-[#9A9288] dark:text-[#6B6660] hover:text-[#4A4640] dark:hover:text-[#D8D4CC]
+        className="w-full text-xs text-gray-600 hover:text-gray-800
                    flex items-center justify-center gap-1 transition-colors"
       >
         <ChevronLeft size={13} /> Back
@@ -386,15 +388,15 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] dark:bg-[#1C1A17] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <div className="bg-[#FFFDF9] dark:bg-[#1C1A17] border border-[#EDE8DF] dark:border-[#2C2A26]
+        <div className="bg-white border border-gray-200
                         rounded-2xl p-8 shadow-sm">
 
           {/* Logo */}
           <div className="flex items-center gap-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#C9A96E] shrink-0" />
-            <span className="text-lg font-medium text-[#8B6914] dark:text-[#F5F0E8]">EduTrack</span>
+            <span className="w-2 h-2 rounded-full bg-indigo-700 shrink-0" />
+            <span className="text-lg font-extrabold text-indigo-700">EduTrack</span>
           </div>
 
           {/* Progress bar */}
@@ -424,11 +426,11 @@ export default function Signup() {
         </div>
 
         {/* Footer */}
-        <p className="text-xs text-[#9A9288] dark:text-[#6B6660] mt-4 text-center">
+        <p className="text-xs text-gray-600 mt-4 text-center">
           Already have an account?{' '}
           <Link
             to="/login"
-            className="text-[#8B6914] dark:text-[#F5F0E8] hover:underline font-medium"
+            className="text-indigo-700 hover:underline font-medium"
           >
             Sign in
           </Link>

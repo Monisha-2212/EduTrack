@@ -1,17 +1,18 @@
 /**
  * Summary metric card shown in dashboard stat rows.
  *
- * @param {{ label: string, value: string | number, sub?: string }} props
+ * @param {{ label: string, value: string | number, sub?: string, role?: string }} props
  */
-export default function StatCard({ label, value, sub }) {
+export default function StatCard({ label, value, sub, role }) {
+  const borderColor = role === 'faculty' ? 'border-emerald-200' : 'border-indigo-100';
   return (
-    <div className="bg-[#FAF8F5] dark:bg-[#1C1A17]/60 rounded-lg p-4">
-      <p className="text-xs text-[#9A9288] dark:text-[#6B6660] mb-1">{label}</p>
-      <p className="text-2xl font-medium text-[#2C2A26] dark:text-[#F5F0E8] leading-none">
+    <div className={`bg-white ${borderColor} rounded-lg p-4 border`}>
+      <p className="text-xs text-gray-600 mb-1">{label}</p>
+      <p className="text-2xl font-semibold text-gray-900 leading-none">
         {value}
       </p>
       {sub && (
-        <p className="text-xs text-[#9A9288] dark:text-[#6B6660] mt-1">{sub}</p>
+        <p className="text-xs text-gray-600 mt-1">{sub}</p>
       )}
     </div>
   );

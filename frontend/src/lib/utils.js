@@ -21,7 +21,7 @@ export function cn(...inputs) {
  */
 export function getDeadlineBadge(deadline, status) {
   if (status === 'graded') {
-    return { label: 'Graded', className: 'bg-[#E8F5F1] text-[#2A5C4A]' };
+    return { label: 'Graded', className: 'bg-green-100 text-green-800' };
   }
 
   const now = new Date();
@@ -30,16 +30,16 @@ export function getDeadlineBadge(deadline, status) {
   const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
   if (diffMs < 0) {
-    return { label: 'Overdue', className: 'bg-[#FBF0ED] text-[#8B3A22]' };
+    return { label: 'Overdue', className: 'bg-red-100 text-red-800' };
   }
   if (diffDays <= 0) {
-    return { label: 'Due today', className: 'bg-[#FBF0ED] text-[#8B3A22]' };
+    return { label: 'Due today', className: 'bg-red-100 text-red-800' };
   }
   if (diffDays === 1) {
-    return { label: 'Due tomorrow', className: 'bg-[#FBF0ED] text-[#8B3A22]' };
+    return { label: 'Due tomorrow', className: 'bg-red-100 text-red-800' };
   }
   if (diffDays <= 3) {
-    return { label: `Due in ${diffDays} days`, className: 'bg-[#FDF5E4] text-[#7A5A10]' };
+    return { label: `Due in ${diffDays} days`, className: 'bg-yellow-100 text-yellow-800' };
   }
-  return { label: `Due in ${diffDays} days`, className: 'bg-[#EDF4E8] text-[#3A5C28]' };
+  return { label: `Due in ${diffDays} days`, className: 'bg-green-100 text-green-800' };
 }
